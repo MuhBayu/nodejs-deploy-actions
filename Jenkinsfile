@@ -32,8 +32,6 @@ pipeline {
         echo 'Killing Docker'
         sh 'docker kill service-1 || true'
         sh 'docker rm service-1 || true'
-        sh 'docker rm service-1 || true'
-        sh 'docker image prune -f || true'
       }
     }
     stage('Deploy Production') {
@@ -58,7 +56,7 @@ pipeline {
     stage('Clean') {
       steps {
         echo 'clean'
-        sh ''
+        sh 'docker image prune -f || true'
       }
     }
   }
