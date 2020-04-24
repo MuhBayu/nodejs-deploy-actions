@@ -38,19 +38,32 @@ pipeline {
         }
       }
       steps {
-        echo 'Deploying'
-        sh 'docker build -t muhbayu/nodejs-deploy:${BUILD_NUMBER} .'
-        sh 'docker run -d -p 3000:3000 --name service-1 muhbayu/nodejs-deploy:${BUILD_NUMBER}'
-        notifyBuild('SUCCESS')
+        script {
+          try {
+            echo 'Deploying'
+            sh 'docker build -t muhbayu/nodejs-deploy:${BUILD_NUMBER} .'
+            sh 'docker run -d -p 3000:3000 --name service-1 muhbayu/nodejs-deploy:${BUILD_NUMBER}'
+            notifyBuild('SUCCESS')
+            currentBuild.result = 'SUCCESS'
+          } catch (e) {
+            currentBuild.result = 'FAILURE'
+          }
       }
     }
     stage('Unit Test') {
+      when {
+        expression {
+          currentBuild.result == 'SUCCESS'
+        }
+      }
       steps {
-        try {
-          input id: 'Unittest', message: "Proceed?"
-          echo 'Unit test here'
-        } catch (e) {
+        script {
+          try {
+            input id: 'Unittest', message: "Proceed?"
+            echo 'Unit test here'
+          } catch (e) {
             echo 'Skip'
+          }
         }
       }
     }
