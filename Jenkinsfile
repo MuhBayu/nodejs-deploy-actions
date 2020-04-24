@@ -48,6 +48,7 @@ pipeline {
           } catch (e) {
             currentBuild.result = 'FAILURE'
           }
+        }
       }
     }
     stage('Unit Test') {
