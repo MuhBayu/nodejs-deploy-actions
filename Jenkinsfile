@@ -1,3 +1,4 @@
+def runUnittest = true
 pipeline {
   agent any
   stages {
@@ -23,7 +24,6 @@ pipeline {
       }
     }
     stage('Unit Test') {
-      def runUnittest = true
       steps {
         try {
           input 'Run Unit Test?'
