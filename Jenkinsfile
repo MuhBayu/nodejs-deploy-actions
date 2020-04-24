@@ -24,8 +24,15 @@ pipeline {
     }
     stage('Unit Test') {
       steps {
-        input 'Do you approve deployment?'
-        echo 'Unit test here'
+        def runUnittest = true
+        try{
+          input 'Run Unit Test?'
+        }catch(e){
+           runUnittest = false
+        }
+        if(runUnittest){
+            echo 'Unit test here'
+        }
       }
     }
     stage('Clean') {
