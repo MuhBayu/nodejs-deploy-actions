@@ -15,6 +15,7 @@ pipeline {
     }
     stage('Unit Test') {
       steps {
+        input 'Do you approve deployment?'
         echo 'Unit test here'
       }
     }
