@@ -1,18 +1,20 @@
 pipeline {
   agent any
   stages {
-    stage('Deploy Production') {
-      when {
-        expression {
-          BRANCH_NAME ==~ /(master|staging|develop|hotfix.*|release.*|feature.*)/
-        }
-      }
+    stage('Initial') {
       steps {
         echo 'Killing Docker'
         sh 'docker kill service-1 || true'
         sh 'docker rm service-1 || true'
         sh 'docker rm service-1 || true'
         sh 'docker image prune -f || true'
+      }
+    }
+    stage('Deploy Production') {
+      when {
+        expression {
+          BRANCH_NAME ==~ /(master)/
+        }
       }
       steps {
         echo 'Deploying'
