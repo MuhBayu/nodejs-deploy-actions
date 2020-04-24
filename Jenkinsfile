@@ -1,4 +1,3 @@
-def runUnittest = true
 pipeline {
   agent any
   stages {
@@ -25,14 +24,8 @@ pipeline {
     }
     stage('Unit Test') {
       steps {
-        try {
-          input 'Run Unit Test?'
-        } catch (e) {
-           runUnittest = false
-        }
-        if(runUnittest) {
-            echo 'Unit test here'
-        }
+        input message: "Proceed?"
+        echo 'Unit test here'
       }
     }
     stage('Clean') {
