@@ -25,6 +25,11 @@ pipeline {
   agent any
   stages {
     stage('Initial') {
+      when {
+        expression {
+          BRANCH_NAME ==~ /(master)/
+        }
+      }
       steps {
         echo 'Killing Docker'
         sh 'docker kill service-1 || true'
@@ -46,6 +51,7 @@ pipeline {
             notifyBuild('SUCCESS')
             currentBuild.result = 'SUCCESS'
           } catch (e) {
+            notifyBuild('FAILURE')
             currentBuild.result = 'FAILURE'
           }
         }
