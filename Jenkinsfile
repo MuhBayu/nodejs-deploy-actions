@@ -23,14 +23,14 @@ pipeline {
       }
     }
     stage('Unit Test') {
+      def runUnittest = true
       steps {
-        def runUnittest = true
-        try{
+        try {
           input 'Run Unit Test?'
-        }catch(e){
+        } catch (e) {
            runUnittest = false
         }
-        if(runUnittest){
+        if(runUnittest) {
             echo 'Unit test here'
         }
       }
