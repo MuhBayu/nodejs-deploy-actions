@@ -46,8 +46,12 @@ pipeline {
     }
     stage('Unit Test') {
       steps {
-        input message: "Proceed?"
-        echo 'Unit test here'
+        try {
+          input id: 'Unittest', message: "Proceed?"
+          echo 'Unit test here'
+        } catch (e) {
+            echo 'Skip'
+        }
       }
     }
     stage('Clean') {
