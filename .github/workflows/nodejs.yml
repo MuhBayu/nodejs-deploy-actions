@@ -18,12 +18,20 @@ jobs:
       matrix:
         node-version: [10.x]
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js $GITHUB_RUN_ID
+    
+    # step 1: set up Node
+    - name: Set up NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${matrix.node-version}
+    
+    - name: Use Node.js
       uses: franzdiebold@github-env-vars-action@v1.0.0
       run: |
         echo $GITHUB_RUN_ID
         echo "$GITHUB_RUN_ID"
+    
+    - name: Install Depedencies
     - run: npm install
   
 #   deploy:
