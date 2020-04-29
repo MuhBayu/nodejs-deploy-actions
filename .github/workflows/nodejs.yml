@@ -26,7 +26,7 @@ jobs:
         node-version: ${matrix.node-version}
     
     - name: Use Node.js $GITHUB_RUN_ID
-      uses: franzdiebold@github-env-vars-action@v1.0.0
+      run: echo $GITHUB_RUN_NUMBER
     
     - name: Install Depedencies
     - run: npm install
