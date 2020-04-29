@@ -51,12 +51,14 @@ jobs:
     - name: Running Container
       run: |
         IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+        
         docker pull $IMAGE_ID:$GITHUB_RUN_NUMBER
         docker kill $CONTAINER_NAME || true
         docker run -d -p 3000:3000 --name $CONTAINER_NAME $IMAGE_ID:$GITHUB_RUN_NUMBER
   
   clean:
-    needs: [build]
+    needs: [deploy]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
