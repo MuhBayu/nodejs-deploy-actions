@@ -19,16 +19,15 @@ jobs:
         node-version: [10.x]
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }} and GITHUB_RUN_ID
+    - name: Use Node.js ${{ matrix.node-version }} and $GITHUB_RUN_ID
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install Depedencies
     - run: npm install
   
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Running
-      - run: npm start
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Running
+#       - run: npm start
