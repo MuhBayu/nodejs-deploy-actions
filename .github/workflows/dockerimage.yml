@@ -1,11 +1,9 @@
 name: Docker Image CI
 
-# on:
-#   push:
-#     branches: [ action ]
 on:
-  repository_dispatch:
-    types: example-event
+  push:
+    branches: [ action ]
+
 env:
   IMAGE_NAME: nodejs-deploy
   CONTAINER_NAME: service-1
