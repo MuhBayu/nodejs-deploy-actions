@@ -38,19 +38,19 @@ jobs:
         [ "$VERSION" == "master" ] && VERSION=latest
         echo IMAGE_ID=$IMAGE_ID
         echo VERSION=$VERSION
-        docker tag image $IMAGE_ID:$VERSION
+        docker tag $IMAGE_NAME:$GITHUB_RUN_NUMBER $IMAGE_ID:$VERSION
         docker push $IMAGE_ID:$VERSION
 
   
-  deploy:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Running Container
-      run: |
-        docker kill service-1 || true
-        docker run -d -p 3000:3000 --name service-1 $IMAGE_NAME:$GITHUB_RUN_NUMBER
+#   deploy:
+#     needs: [build]
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Running Container
+#       run: |
+#         docker kill service-1 || true
+#         docker run -d -p 3000:3000 --name service-1 $IMAGE_NAME:$GITHUB_RUN_NUMBER
   
   clean:
     needs: [deploy]
