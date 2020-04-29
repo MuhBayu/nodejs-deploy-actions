@@ -11,6 +11,7 @@ on:
 env:
   IMAGE_NAME: nodejs-deploy
   CONTAINER_NAME: service-1
+  IMAGE_REG: docker.pkg.github.com/${{ github.actor }}/$IMAGE_NAME
 
 jobs:
 
@@ -27,8 +28,8 @@ jobs:
         
     - name: Push image
       run: |
-        IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-
+        IMAGE_ID=docker.pkg.github.com/${{ github.actor }}/$IMAGE_NAME
+        echo $IMAGE_REG
         # Change all uppercase to lowercase
         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
         # Strip git ref prefix from version
@@ -54,7 +55,7 @@ jobs:
 
     - name: Running Container
       run: |
-        IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+        IMAGE_ID=docker.pkg.github.com/${{ github.actor }}/$IMAGE_NAME
         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
         
         docker pull $IMAGE_ID:$GITHUB_RUN_NUMBER
@@ -67,4 +68,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Cleaning Images
-      run: docker image prune -f || true
+      run: |
+        docker image prune -f || true
+        docker images -a | grep "$IMAGE_NAME" | awk '{print $3}' | xargs docker rmi || true
