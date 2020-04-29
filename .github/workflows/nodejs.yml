@@ -26,3 +26,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run start
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Running
+      - run: npm start
