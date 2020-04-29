@@ -17,16 +17,21 @@ jobs:
     strategy:
       matrix:
         node-version: [10.x]
-
+    steps:
+    - name: Generate build number
+      id: buildnumber
+      uses: einaregilsson/build-number@v2 
+      with:
+        token: ${{secrets.github_token}}
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node-version }} Build number : ${{ steps.buildnumber.outputs.build_number }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm run start
-
+    - name: Install Depedencies
+      run: npm install
+  
   deploy:
     runs-on: ubuntu-latest
     steps:
