@@ -75,5 +75,6 @@ jobs:
         IMAGE_ID=$IMAGE_REPOSITORY/$IMAGE_NAME
         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
         
+        docker rmi $IMAGE_NAME || true
         docker image prune -f || true
         docker images -a | grep "$IMAGE_ID" | awk '{print $3}' | xargs docker rmi || true
