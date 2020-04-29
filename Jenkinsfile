@@ -60,6 +60,7 @@ pipeline {
     stage('Unit Test') {
       when {
         expression {
+          BRANCH_NAME ==~ /(master)/
           currentBuild.result == 'SUCCESS'
         }
       }
@@ -75,6 +76,11 @@ pipeline {
       }
     }
     stage('Clean') {
+      when {
+        expression {
+          BRANCH_NAME ==~ /(master)/
+        }
+      }
       steps {
         echo 'clean'
         sh 'docker image prune -f || true'
