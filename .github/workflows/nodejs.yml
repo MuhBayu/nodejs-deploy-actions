@@ -20,10 +20,10 @@ jobs:
     steps:
     
     # step 1: set up Node
-    - name: Set up NodeJS
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${matrix.node-version}
+        node-version: ${{ matrix.node-version }}
     
     - name: Use Node.js $GITHUB_RUN_ID
       run: echo $GITHUB_RUN_NUMBER
