@@ -9,7 +9,7 @@ on:
     
 
 env:
-  IMAGE_NAME: muhbayu/nodejs-deploy
+  IMAGE_NAME: nodejs-deploy
 
 jobs:
 
