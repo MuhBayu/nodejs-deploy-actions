@@ -25,7 +25,7 @@ jobs:
         token: ${{secrets.github_token}}
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }} and ${{ steps.buildnumber.outputs.build_number }}
+    - name: Use Node.js ${{ matrix.node-version }} and $BUILD_NUMBER
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
