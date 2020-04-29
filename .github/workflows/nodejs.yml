@@ -16,24 +16,13 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [10.x, 12.x]
+
     steps:
-    
-    # step 1: set up Node
+    - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    
-    - name: Use Node.js $GITHUB_RUN_ID
-      run: echo $GITHUB_RUN_NUMBER
-    
     - name: Install Depedencies
-    - run: npm install
-  
-#   deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Running
-#       - run: npm start
+      run: npm install
