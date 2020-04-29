@@ -63,7 +63,7 @@ jobs:
         
         docker pull $IMAGE_ID:$GITHUB_RUN_NUMBER
         docker kill $CONTAINER_NAME || true
-        docker run -d -p 3000:3000 --name $CONTAINER_NAME $IMAGE_ID:$GITHUB_RUN_NUMBER
+        docker run -dti -p 3000:3000 --name $CONTAINER_NAME $IMAGE_ID:$GITHUB_RUN_NUMBER
   
   clean:
     needs: [deploy]
